@@ -66,6 +66,10 @@ function SidebarProvider({
   open?: boolean
   onOpenChange?: (open: boolean) => void
 }) {
+  // Forzar estado expandido al recargar
+  if (typeof window !== 'undefined') {
+    document.cookie = `${SIDEBAR_COOKIE_NAME}=true; path=/; max-age=${SIDEBAR_COOKIE_MAX_AGE}`;
+  }
   const isMobile = useIsMobile()
   const [openMobile, setOpenMobile] = React.useState(false)
 

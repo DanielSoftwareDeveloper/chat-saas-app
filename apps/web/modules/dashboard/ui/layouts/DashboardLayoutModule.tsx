@@ -1,7 +1,6 @@
 import { AuthGuard } from "@/modules/auth/ui/components/AuthGuard";
 import { OrganizationGuard } from "@/modules/auth/ui/components/OraganizationGuard";
 import { SidebarProvider } from "@workspace/ui/components/sidebar";
-import { cookies } from "next/headers";
 import DashboardSidebar from "../components/DashboardSidebar";
 
 export default async function DashboardLayoutModule({
@@ -9,8 +8,8 @@ export default async function DashboardLayoutModule({
 }: {
   children: React.ReactNode;
 }) {
-  const cookieStore = await cookies();
-  const defaultOpen = cookieStore.get("sidebar_state")?.value === "true";
+  // Forzar estado expandido por defecto
+  const defaultOpen = true;
 
   return (
     <AuthGuard>

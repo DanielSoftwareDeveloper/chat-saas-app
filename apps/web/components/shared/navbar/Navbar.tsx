@@ -6,6 +6,7 @@ import NavbarRoutes from "./NavbarRoutes";
 import Sidebar from "./Sidebar";
 import Link from "next/link";
 import { buttonVariants } from "@workspace/ui/components/button";
+import { ModeToggle } from "@/components/theme/ModeToggle";
 
 function Navbar() {
   return (
@@ -16,7 +17,7 @@ function Navbar() {
           <NavbarRoutes />
         </div>
         <div className="flex items-center gap-x-4">
-          {/*<ModeToggle />*/}
+          <ModeToggle />
           <Sidebar />
           <>
             <Link

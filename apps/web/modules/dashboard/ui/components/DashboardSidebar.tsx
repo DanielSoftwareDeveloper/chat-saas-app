@@ -9,7 +9,6 @@ import {
   Mic,
   Palette,
 } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
@@ -25,16 +24,17 @@ import {
   SidebarMenuItem,
   SidebarRail,
 } from "@workspace/ui/components/sidebar";
+import { cn } from "@workspace/ui/lib/utils";
 
 const customerSupportItems = [
   {
     title: "Conversations",
-    url: "/conversations",
+    url: "/dashboard/conversations",
     icon: InboxIcon,
   },
   {
     title: "Knoledge Base",
-    url: "/files",
+    url: "/dashboard/files",
     icon: LibraryBig,
   },
 ];
@@ -42,17 +42,17 @@ const customerSupportItems = [
 const configurationItems = [
   {
     title: "Chat Customization",
-    url: "/customization",
+    url: "/dashboard/customization",
     icon: Palette,
   },
   {
     title: "Integrations",
-    url: "/integrations",
+    url: "/dashboard/integrations",
     icon: LayoutDashboard,
   },
   {
     title: "Voice Assistant",
-    url: "/plugins/vapi",
+    url: "/dashboard/plugins/vapi",
     icon: Mic,
   },
 ];
@@ -60,19 +60,14 @@ const configurationItems = [
 const accountItems = [
   {
     title: "Plans and Billing",
-    url: "/billing",
+    url: "/dashboard/billing",
     icon: CreditCard,
   },
 ];
 
 function DashboardSidebar() {
   const pathname = usePathname();
-  const isActive = (url: string) => {
-    if (url === "/dashboard") {
-      return pathname === "/dashboard";
-    }
-    return pathname.startsWith(url);
-  };
+
   return (
     <Sidebar className="group" collapsible="icon">
       <SidebarHeader>
@@ -109,12 +104,13 @@ function DashboardSidebar() {
             <SidebarMenu>
               {customerSupportItems.map((item) => (
                 <SidebarMenuItem key={item.url}>
-                  <SidebarMenuButton
-                    asChild
-                    isActive={isActive(item.url)}
-                    tooltip={item.title}
-                  >
-                    <Link href={item.url}>
+                  <SidebarMenuButton asChild tooltip={item.title}>
+                    <Link
+                      href={item.url}
+                      className={cn("", {
+                        "bg-primary text-white": pathname === item.url,
+                      })}
+                    >
                       <item.icon className="size-4" />
                       <span>{item.title}</span>
                     </Link>
@@ -133,7 +129,9 @@ function DashboardSidebar() {
                 <SidebarMenuItem key={item.url}>
                   <SidebarMenuButton
                     asChild
-                    isActive={isActive(item.url)}
+                    className={cn("", {
+                      "bg-primary text-white": pathname === item.url,
+                    })}
                     tooltip={item.title}
                   >
                     <Link href={item.url}>
@@ -155,7 +153,9 @@ function DashboardSidebar() {
                 <SidebarMenuItem key={item.url}>
                   <SidebarMenuButton
                     asChild
-                    isActive={isActive(item.url)}
+                    className={cn("", {
+                      "bg-primary text-white": pathname === item.url,
+                    })}
                     tooltip={item.title}
                   >
                     <Link href={item.url}>
@@ -178,7 +178,7 @@ function DashboardSidebar() {
                 elements: {
                   rootBox: "w-full! h-8!",
                   userButtonTrigger:
-                    "w-full! p-2! hover:bg-sidebar-accent! hover:text-sidebar-accent-foreground! group-data-[collapsible=icon]:size-8! group-data-[collapsible=icon]:p-2!",
+                    "w-full! p-2! hover:bg-sidebar-accent! hover:text-sidebar-accent-foreground! hover:text-sidebar-accent-foreground! group-data-[collapsible=icon]:size-8! group-data-[collapsible=icon]:p-2!",
                   userButtonBox:
                     "w-full! flex-row-reverse! justify-end! gap-2! group-data-[collapsible=icon]:justify-center! text-sidebar-foreground!",
                   userButtonOuterIdentifier:
